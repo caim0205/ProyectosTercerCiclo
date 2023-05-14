@@ -1,2 +1,2 @@
 # ProyectosTercerCiclo
-Proectos de Estructura de Datos
+Proyectos de Estructura de Datos
