@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import controlador.listas.ListaEnlazada;
+
 /**
  *
  * @author santiago
@@ -13,8 +15,14 @@ public class Sucursal {
      
     private Integer id;
     private String nombre;
-    private Venta[] ventas; 
+    private ListaEnlazada<Venta> ventas; 
    
+    
+    @Override
+    public String toString(){
+        return getNombre()+"  "+getId();
+    }
+    
     
     public Integer getId() {
         return id;
@@ -37,20 +45,18 @@ public class Sucursal {
         this.nombre = nombre;
     }
 
-    public Venta[] getVentas() {
+    /**
+     * @return the ventas
+     */
+    public ListaEnlazada<Venta> getVentas() {
         return ventas;
     }
 
-    public void setVentas(Venta[] ventas) {
+    /**
+     * @param ventas the ventas to set
+     */
+    public void setVentas(ListaEnlazada<Venta> ventas) {
         this.ventas = ventas;
     }
-
-    
-    
-    @Override
-    public String toString(){
-        return nombre+"  "+id;
-    }
-    
     
 }

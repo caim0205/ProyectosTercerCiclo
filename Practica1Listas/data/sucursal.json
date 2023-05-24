@@ -1,0 +1,1 @@
+{"controlador.listas.ListaEnlazada":{"cabecera":{"info":{"@class":"modelo.Sucursal","id":0,"nombre":"hda"},"siguiente":{"info":{"@class":"modelo.Sucursal","id":0,"nombre":"khkas"},"siguiente":{"info":{"@class":"modelo.Sucursal","id":0,"nombre":"hahd"},"siguiente":{"info":{"@class":"modelo.Sucursal","id":0,"nombre":"a"}}}}},"size":4}}
