@@ -11,7 +11,6 @@ import controlador.lista.cola.Cola;
 import controlador.lista.exception.PosicionException;
 import controlador.lista.exception.TopeException;
 import controlador.lista.exception.VacioException;
-import controlador.listas.ListaEnlazada;
 import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -26,29 +25,24 @@ import modelo.Venta;
  * @author santiago
  */
 public class FrmVentas extends javax.swing.JDialog {
-    private ModeloTablaVenta modelo = new ModeloTablaVenta();
+     private ModeloTablaVenta modelo = new ModeloTablaVenta();
     private SucursalControl control = new SucursalControl();
     private AdaptadorDao<Sucursal> dao = new AdaptadorDao<>(Sucursal.class);
     private AdaptadorDaoHistorial<Historial> daoHistorial = new AdaptadorDaoHistorial<>(Historial.class);
-
-    
     /**
      * Creates new form FrmVentas
      */
-    public FrmVentas(java.awt.Frame parent, boolean modal, SucursalControl control ) {
+    public FrmVentas(java.awt.Frame parent, boolean modal, SucursalControl control1) {
         super(parent, modal);
         initComponents();
-        this.control = control;
-        inicializarVentas();
+        this.control = control1;
         cargarTabla();
-        
     }
-    
-    private void cargarTabla(){
+
+    private void cargarTabla() {
         modelo.setListaVentas(control.getSucursal().getVentas());
         tblTabla.setModel(modelo);
         tblTabla.updateUI();
-        
     }
     
     
@@ -244,9 +238,8 @@ public class FrmVentas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        try {
+         try {
             // TODO add your handling code here:
-
             cargarVentas();
         } catch (VacioException ex) {
             Logger.getLogger(FrmVentas.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,7 +250,6 @@ public class FrmVentas extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            // TODO add your handling codSS here:
             modificar();
         } catch (PosicionException ex) {
             Logger.getLogger(FrmVentas.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,13 +299,45 @@ public class FrmVentas extends javax.swing.JDialog {
         });
     }
     
-    private void cargarVentas() throws VacioException, PosicionException{
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMes;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JTable tblTabla;
+    private javax.swing.JTextField txtValor;
+    // End of variables declaration//GEN-END:variables
+
+    private void inicializarVentas() {
+        int idVenta = 0;
+        for (EnumMes mes : EnumMes.values()) {
+            Venta v = new Venta();
+            v.setMes(mes);
+            v.setValor(0.0);
+            v.setId(idVenta);
+            idVenta++;
+            control.getSucursal().getVentas().insertar(v);
+        }
+    }
+    
+     private void cargarVentas() throws VacioException, PosicionException {
         int fila = tblTabla.getSelectedRow();
         this.control.setVenta(control.getSucursal().getVentas().getDatos(fila));
         txtValor.setText(String.valueOf(control.getVenta().getValor()));
         lblMes.setText(control.getVenta().getMes().name());
+        
     }
-    
+
     private void modificar() throws PosicionException {
         try {
             Venta v = new Venta();
@@ -345,35 +369,6 @@ public class FrmVentas extends javax.swing.JDialog {
         cola.queue(h);
         
         daoHistorial.guardarCola(cola);
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblMes;
-    private javax.swing.JLabel lblSucursal;
-    private javax.swing.JTable tblTabla;
-    private javax.swing.JTextField txtValor;
-    // End of variables declaration//GEN-END:variables
-
-    private void inicializarVentas() {
-        int idVenta = 0;
-        for (EnumMes mes : EnumMes.values()) {
-            Venta v = new Venta();
-            v.setMes(mes);
-            v.setValor(0.0);
-            v.setId(idVenta);
-            idVenta++;
-            control.getSucursal().getVentas().insertar(v);
-        }
     }
     
     

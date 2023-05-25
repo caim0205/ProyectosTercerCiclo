@@ -19,7 +19,6 @@ import modelo.Sucursal;
  */
 public class ModeloTablaSucursal extends AbstractTableModel{
     
-    
     private ListaEnlazada<Sucursal> datos = new ListaEnlazada<>();
     private int columnas =3;
 
@@ -81,5 +80,4 @@ public class ModeloTablaSucursal extends AbstractTableModel{
     }
 
    
-    
 }

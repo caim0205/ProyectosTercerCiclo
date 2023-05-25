@@ -26,42 +26,42 @@ public class FrmSucursal extends javax.swing.JDialog {
 
     private SucursalControl control = new SucursalControl();
     private ModeloTablaSucursal modelo = new ModeloTablaSucursal();
-    private AdaptadorDao <Sucursal> dao = new AdaptadorDao<>(Sucursal.class);
+    private AdaptadorDao<Sucursal> dao = new AdaptadorDao<>(Sucursal.class);
     private ListaEnlazada ventas = new ListaEnlazada();
     private int id = 0;
-    
+
     /**
      * Creates new form FrmSucursal
      */
     public FrmSucursal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarVentas();
         cargarTabla();
     }
     
-    private void cargarTabla(){
+    private void cargarTabla() {
         modelo.setDatos(dao.listar());
         tblTabla.setModel(modelo);
         tblTabla.updateUI();
         
     }
     
-    private void limpiar(){
-        control.setSucursal(null);
+    private void limpiar() {
         txtNombre.setText("");
         cargarTabla();
     }
     
-    
-    private void guardarSucursal() throws IOException{
+    private void guardarSucursal() throws IOException {
         Sucursal sucursal = new Sucursal();
         sucursal.setId(id);
         sucursal.setNombre(txtNombre.getText().toString());
+        sucursal.setVentas(ventas);
         control.setSucursal(sucursal);
         dao.guardar(sucursal);
         id++;
-          
-      }
+        limpiar();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -213,18 +213,15 @@ public class FrmSucursal extends javax.swing.JDialog {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
-            
             guardarSucursal();
-            cargarTabla();
         } catch (IOException ex) {
             Logger.getLogger(FrmSucursal.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         
-       try {            
+      try {            
             int fila = tblTabla.getSelectedRow();
             control.setSucursal((Sucursal) dao.listar().getDatos(fila));
             new FrmVentas(null, true, control).setVisible(true);
@@ -296,4 +293,19 @@ public class FrmSucursal extends javax.swing.JDialog {
     private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+
+    private void cargarVentas() {
+
+        int idVenta = 0;
+        this.ventas=new ListaEnlazada();
+        for (EnumMes mes : EnumMes.values()) {
+            Venta v = new Venta();
+            v.setMes(mes);
+            v.setValor(0.0);
+            v.setId(idVenta);
+            idVenta++;
+            ventas.insertar(v);
+        }
+    }
 }
