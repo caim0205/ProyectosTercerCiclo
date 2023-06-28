@@ -1,0 +1,1 @@
+{"controlador.lista.cola.Cola":{"cola":{"cabecera":{"info":{"@class":"modelo.Historial","fecha":"2023-05-25 02:44:30.818 UTC","venta":{"id":1,"valor":12.4,"mes":"FEBRERO"}},"siguiente":{"info":{"@class":"modelo.Historial","fecha":"2023-05-25 02:49:26.237 UTC","venta":{"id":2,"valor":7.4,"mes":"MARZO"}}}},"size":2,"tope":20}}}
