@@ -46,12 +46,12 @@ public class ListaEnlazada<E> {
 
     public void imprimir() {
         NodoLista<E> aux = getCabecera();
-        System.out.println("-----LISTA-----");
+        System.out.println("-----FIN DE LA LISTA-----");
         while (aux != null) {
             System.out.println(aux.getInfo());
             aux = aux.getSig();
         }
-        System.out.println("-----LISTA FIN-----");
+        System.out.println("-----FIN DE LA LISTA-----");
     }
 
     public static int generarN(int min, int max) {
